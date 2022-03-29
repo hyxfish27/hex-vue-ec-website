@@ -71,7 +71,7 @@ $colors: (
   'gray': $gray-600,
   'gray-dark': $gray-800,
   // customize
-  'coral': $coral,
+    'coral': $coral,
   'peach': $peach,
   'vanilla': $vanilla,
   'grass': $grass,
@@ -81,15 +81,17 @@ $colors: (
 
 // scss-docs-start theme-color-variables
 
-$primary: $peach !default;
+$primary: $coral !default;
 $secondary: $vanilla !default;
+$success: $grass !default;
+$light: $gray-400 !default;
 // $primary: $blue !default;
 // $secondary: $gray-600 !default;
-$success: $green !default;
+// $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
 $danger: $red !default;
-$light: $gray-100 !default;
+// $light: $gray-100 !default;
 $dark: $gray-900 !default;
 // scss-docs-end theme-color-variables
 

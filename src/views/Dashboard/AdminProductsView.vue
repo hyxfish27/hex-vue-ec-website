@@ -50,8 +50,8 @@
                 class="form-check-label"
                 :for="`enableSwitch${product.id}}`"
               >
-                <span class="text-success" v-if="product.is_enabled">啟用</span>
-                <span v-else>未啟用</span>
+                <span class="text-success" v-if="product.is_enabled">上架</span>
+                <span class="text-danger" v-else>下架</span>
               </label>
             </div>
           </td>
@@ -138,8 +138,11 @@ export default {
           this.isReady = true
         })
         .catch(err => {
-          this.$httpMessageState(err.response, '錯誤訊息')
-          // this.isReady = true
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: '取得產品失敗',
+            content: err.response.data.message
+          })
         })
     },
     addProduct () {
@@ -160,8 +163,9 @@ export default {
           this.emitter.emit('push-message', {
             style: 'danger',
             title: '新增產品失敗',
-            content: err.data.message
+            content: err.response.data.message
           })
+          this.isReady = true
         })
       this.$refs.adminProductModal.hideModal()
     },
@@ -176,15 +180,16 @@ export default {
             title: '編輯產品成功',
             content: res.data.message
           })
-          this.getProducts()
+          this.getProducts(this.pagination.current_page)
           this.isReady = true
         })
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
             title: '編輯產品失敗',
-            content: err.data.message
+            content: err.response.data.message
           })
+          this.isReady = true
         })
       this.$refs.adminProductModal.hideModal()
     },
@@ -194,12 +199,21 @@ export default {
       this.$http
         .delete(url)
         .then(res => {
-          alert(res.data.message)
-          this.getProducts()
+          this.emitter.emit('push-message', {
+            style: 'success',
+            title: '刪除產品成功',
+            content: res.data.message
+          })
+          this.getProducts(this.pagination.current_page)
           this.isReady = true
         })
         .catch(err => {
-          alert(err.data.message)
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: '刪除產品失敗',
+            content: err.response.data.message
+          })
+          this.isReady = true
         })
       this.$refs.delModal.hideModal()
     },
@@ -214,15 +228,16 @@ export default {
             title: '已啟用產品',
             content: res.data.message
           })
-          // this.getProducts()
+          this.getProducts(this.pagination.current_page)
           this.isReady = true
         })
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
             title: '啟用產品失敗',
-            content: err.data.message
+            content: err.response.data.message
           })
+          this.isReady = true
         })
     },
     // Products Execution End

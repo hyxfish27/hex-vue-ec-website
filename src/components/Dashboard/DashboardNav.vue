@@ -40,3 +40,20 @@
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout () {
+      const url = `${process.env.VUE_APP_API}/logout`
+      this.$http.post(url).then(res => {
+        if (res.data.success) {
+          document.cookie = 'myToken=;expires=;'
+          alert('已成功登出')
+          this.$router.replace('/')
+        }
+      })
+    }
+  }
+}
+</script>

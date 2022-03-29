@@ -44,14 +44,16 @@
                 type="checkbox"
                 :id="`enableSwitch${product.id}`"
                 v-model="product.is_enabled"
+                :true-value="1"
+                :false-value="0"
                 @change="updateEnableStatus(product)"
               />
               <label
                 class="form-check-label"
                 :for="`enableSwitch${product.id}}`"
               >
-                <span class="text-success" v-if="product.is_enabled">上架</span>
-                <span class="text-danger" v-else>下架</span>
+                <span class="text-primary" v-if="product.is_enabled">上架</span>
+                <span class="text-light" v-else>下架</span>
               </label>
             </div>
           </td>
@@ -59,14 +61,14 @@
             <div class="btn-group">
               <button
                 type="button"
-                class="btn btn-outline-primary btn-sm"
+                class="btn btn-outline-info btn-sm"
                 @click="openModal('edit', product)"
               >
                 編輯
               </button>
               <button
                 type="button"
-                class="btn btn-outline-danger btn-sm"
+                class="btn btn-outline-primary btn-sm"
                 @click="openDelModal(product)"
               >
                 刪除

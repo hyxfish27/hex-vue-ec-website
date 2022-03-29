@@ -13,26 +13,33 @@ const routes = [
       },
       {
         path: 'products',
-        name: 'Products',
+        name: 'UserProducts',
         component: () => import('../views/UserProductsView.vue')
       },
       {
         path: 'product/:id',
-        name: 'Product',
+        name: 'UserProduct',
         component: () => import('../views/SingleProductView.vue')
       },
-      // {
-      //   path: 'cart',
-      //   component: () => import('../views/CartView.vue')
-      // },
+      {
+        path: 'cart',
+        name: 'UserCart',
+        component: () => import('../views/UserCartView.vue')
+      },
       {
         path: 'about',
+        name: 'About',
         component: () => import('../views/AboutView.vue')
       },
       {
         path: 'login',
         name: 'Login',
         component: () => import('../views/LoginView.vue')
+      },
+      {
+        path: 'favorite',
+        name: 'Favorite',
+        component: () => import('../views/FavoriteView.vue')
       }
     ]
   },
@@ -46,6 +53,16 @@ const routes = [
         path: 'products',
         name: 'Products',
         component: () => import('../views/Dashboard/AdminProductsView.vue')
+      },
+      {
+        path: 'orders',
+        name: 'Orders',
+        component: () => import('../views/Dashboard/AdminOrdersView.vue')
+      },
+      {
+        path: 'coupons',
+        name: 'Coupons',
+        component: () => import('../views/Dashboard/AdminCouponsView.vue')
       }
     ]
   }

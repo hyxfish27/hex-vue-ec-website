@@ -2,7 +2,6 @@
   <div class="d-flex flex-column min-vh-100">
     <DashboardNav></DashboardNav>
     <div class="container-fluid mt-3 position-relative">
-      <ToastMessage></ToastMessage>
       <router-view v-if="adminStatus" />
     </div>
   </div>
@@ -10,8 +9,6 @@
 
 <script>
 import DashboardNav from '@/components/Dashboard/DashboardNav.vue'
-import emitter from '@/methods/eventBus'
-import ToastMessage from '@/components/ToastMessage.vue'
 
 export default {
   data () {
@@ -20,13 +17,7 @@ export default {
     }
   },
   components: {
-    DashboardNav,
-    ToastMessage
-  },
-  provide () {
-    return {
-      emitter
-    }
+    DashboardNav
   },
   methods: {
     checkAdmin () {

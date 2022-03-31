@@ -1,6 +1,6 @@
 <template>
   <div
-    class="toast-container position-fixed pe-3 top-0 end-0"
+    class="toast-container position-fixed pe-3 top-0 end-0 rounded-3"
     style="z-index: 1500"
   >
     <div
@@ -10,12 +10,14 @@
       :class="`toast${key}`"
       role="alert"
     >
-      <div class="toast-header">
-        <span
-          :class="`bg-${msg.style}`"
-          class="p-2 rounded me-2 d-inline-block"
-        ></span>
-        <strong class="me-auto">{{ msg.title }}</strong>
+      <div class="toast-header bg-opacity-100 text-primary">
+        <i
+          class="bi fs-6 mr-3"
+          :class="`bi-${msg.emoji} text-${msg.style}`"
+        ></i>
+        <strong class="me-auto fs-6" :class="`text-${msg.style}`">{{
+          msg.title
+        }}</strong>
         <button
           type="button"
           class="btn-close"
@@ -43,7 +45,7 @@ export default {
       setTimeout(() => {
         // 移除弟一個 message (最早的)
         this.messages.shift()
-      }, 4000)
+      }, 3000)
     },
     clearToast (index) {
       this.messages.splice(index, 1)
@@ -51,8 +53,8 @@ export default {
   },
   mounted () {
     this.emitter.on('push-message', message => {
-      const { style = 'success', title, content } = message
-      this.messages.push({ style, title, content })
+      const { style = 'success', title, content, emoji } = message
+      this.messages.push({ style, title, content, emoji })
       this.toastShow()
     })
   }

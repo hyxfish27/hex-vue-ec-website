@@ -50,7 +50,7 @@ $cyan: #0dcaf0 !default;
 $coral: #ff8c94 !default;
 $peach: #ffaaa5 !default;
 $vanilla: #ffd3b5 !default;
-$grass: #478058 !default;
+$peacock: #519ea4 !default;
 $aqua: #abe6ce !default;
 
 // scss-docs-end color-variables
@@ -74,7 +74,7 @@ $colors: (
     'coral': $coral,
   'peach': $peach,
   'vanilla': $vanilla,
-  'grass': $grass,
+  'peacock': $peacock,
   'aqua': $aqua
 ) !default;
 // scss-docs-end colors-map
@@ -83,7 +83,7 @@ $colors: (
 
 $primary: $coral !default;
 $secondary: $vanilla !default;
-$success: $grass !default;
+$success: $peacock !default;
 $light: $gray-400 !default;
 // $primary: $blue !default;
 // $secondary: $gray-600 !default;

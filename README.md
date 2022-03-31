@@ -1,4 +1,5 @@
 # hex-vue-ec-website
+https://hyxfish27.github.io/hex-vue-ec-website/
 
 ## Project setup
 ```

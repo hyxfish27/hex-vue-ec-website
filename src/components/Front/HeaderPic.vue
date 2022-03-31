@@ -10,11 +10,14 @@
 
 <style>
 .header {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
+  background-image: linear-gradient(
+      rgba(96, 101, 108, 0.8),
+      rgba(255, 211, 181, 0.6) /*dark, secondary*/
+    ),
     url('@/assets/banner.jpg');
   height: 300px;
   background-size: cover;
-  background-position: center -4rem;
+  background-position: center center;
   background-repeat: no-repeat;
 }
 </style>

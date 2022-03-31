@@ -6,10 +6,6 @@
   </div>
 </template>
 
-<style>
-
-</style>
-
 <script>
 import FrontNav from '@/components/Front/FrontNav.vue'
 import FootBar from '@/components/FootBar.vue'

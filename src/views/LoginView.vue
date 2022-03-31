@@ -1,12 +1,12 @@
 <template>
   <div
-    class="container min-vh-100
+    class="container-fluid min-vh-100
   d-flex flex-column justify-content-center"
     id="login_bg"
   >
-    <h3 class="h3 text-center mb-4">請先登入</h3>
+    <h3 class="h3 text-center text-white mb-4">請先登入</h3>
     <div class="row justify-content-center">
-      <div class="col-4">
+      <div class="col-10 col-md-8 col-lg-6">
         <form id="form" class="form-signin">
           <div class="form-floating mb-3">
             <input
@@ -46,8 +46,10 @@
 
 <style>
 #login_bg {
-  background-image: url('@/assets/loginbg.jpg');
+  background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0)), url('@/assets/loginbg.jpg');
   background-size: cover;
+  /* mask: linear-gradient(#fff, transparent); */
+  /* background-blend-mode: darken; */
 }
 </style>
 

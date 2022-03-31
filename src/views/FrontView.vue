@@ -108,6 +108,17 @@
   <router-view />
 </template>
 
+<style>
+.carousel .carousel-item {
+  height: 100vh;
+}
+
+.carousel .carousel-item img {
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+
 <script>
 export default {
   data () {

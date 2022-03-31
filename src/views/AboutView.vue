@@ -1,5 +1,13 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <HeaderPic></HeaderPic>
+  <h2>This is about page</h2>
 </template>
+
+<script>
+import HeaderPic from '@/components/Front/HeaderPic.vue'
+export default {
+  components: {
+    HeaderPic
+  }
+}
+</script>

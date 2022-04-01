@@ -1,5 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-white sticky-top" id="frontNav">
+  <nav
+    class="navbar navbar-expand-lg bg-white sticky-top py-4"
+    id="dashBoardNav"
+  >
     <div class="container">
       <router-link class="navbar-brand link-primary" to="/">
         <i class="bi bi-flower1 h3 me-2"></i>
@@ -21,13 +24,22 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <router-link class="nav-link text-dark" to="/admin/products">
-            <p class="mb-0 h6">商品管理</p>
+          <router-link
+            class="nav-link btn-primary border border-white text-white"
+            to="/admin/products"
+          >
+            <p class="mb-0 h6">產品列表</p>
           </router-link>
-          <router-link class="nav-link text-dark" to="/admin/orders">
+          <router-link
+            class="nav-link btn-primary border border-white text-white"
+            to="/admin/orders"
+          >
             <p class="mb-0 h6">訂單管理</p>
           </router-link>
-          <router-link class="nav-link text-dark" to="/admin/coupons">
+          <router-link
+            class="nav-link btn-primary border border-white text-white"
+            to="/admin/coupons"
+          >
             <p class="mb-0 h6">優惠活動</p>
           </router-link>
         </div>
@@ -43,6 +55,7 @@
       </div>
     </div>
   </nav>
+  <!-- {{ $route.path }} -->
 </template>
 
 <script>
@@ -53,7 +66,12 @@ export default {
       this.$http.post(url).then(res => {
         if (res.data.success) {
           document.cookie = 'myToken=;expires=;'
-          alert('已成功登出')
+          this.emitter.emit('push-message', {
+            style: 'success',
+            title: res.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_SUCCESS}`
+          })
+          // alert('已成功登出')
           this.$router.replace('/')
         }
       })

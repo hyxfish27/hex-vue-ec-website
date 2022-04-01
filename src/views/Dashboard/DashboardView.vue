@@ -35,11 +35,20 @@ export default {
             this.adminStatus = true
           })
           .catch(err => {
+            this.emitter.emit('push-message', {
+              style: 'danger',
+              title: err.response.data.message,
+              emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
+            })
             alert(err.data.message)
             this.$router.replace('/login')
           })
       } else {
-        alert('請重新登入 > <')
+        this.emitter.emit('push-message', {
+          style: 'danger',
+          title: '請重新登入 > <',
+          emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
+        })
         this.$router.push('/login')
       }
     }

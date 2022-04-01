@@ -4,14 +4,14 @@
       <div class="row justify-content-center align-items-center mb-4">
         <div class="col-12 col-md-6 text-secondary">
           <p class="mb-2 h5">聯絡我們</p>
-          <i class="bi bi-envelope h5 me-1 me-md-2"></i>
+          <i class="bi bi-envelope h5 me-1 me-sm-2"></i>
           <span>girlxgoodlife@gmail.com</span>
         </div>
         <div class="col-12 col-md-6 text-secondary">
           <p class="mb-2 h5">追蹤女子生活</p>
-          <i class="bi bi-facebook h5 me-1 me-md-2"></i>
-          <i class="bi bi-instagram h5 me-1 me-md-2"></i>
-          <i class="bi bi-github h5 me-1 me-md-2"></i>
+          <i class="bi bi-facebook h5 me-1 me-sm-2"></i>
+          <i class="bi bi-instagram h5 me-1 me-sm-2"></i>
+          <i class="bi bi-github h5 me-1 me-sm-2"></i>
         </div>
       </div>
       <div class="text-center">

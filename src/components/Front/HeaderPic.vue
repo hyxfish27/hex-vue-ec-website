@@ -1,10 +1,16 @@
 <template>
   <div
     class="header
-    text-secondary text-center
+    text-white text-center
     d-flex justify-content-center align-items-center"
   >
-    <p class="h1 my-0">{{ title }}</p>
+    <p
+      class="h1 px-5 py-3 my-0 text-white
+      border border-white border-3
+    bg-secondary bg-opacity-25"
+    >
+      {{ title }}
+    </p>
   </div>
 </template>
 
@@ -24,10 +30,6 @@
 
 <script>
 export default {
-  data () {
-    return {
-      title: '這是標題'
-    }
-  }
+  props: ['title']
 }
 </script>

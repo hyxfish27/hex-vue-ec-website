@@ -1,11 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-white sticky-top" id="frontNav">
     <div class="container">
-      <router-link class="navbar-brand" to="/">
-        <div class="text-align-justify">
-          女 子 x 生 活<br />
-          Good Life
-        </div>
+      <router-link class="navbar-brand link-primary" to="/">
+        <i class="bi bi-flower1 h3 me-2"></i>
+        <span class="h3" id="brandName">女 子 x 生 活 Good Life</span>
       </router-link>
       <button
         class="navbar-toggler"
@@ -16,15 +14,21 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <i
+          class="bi bi-justify navbar-toggler-icon h2 text-primary my-auto
+          d-flex justify-content-center align-items-center"
+        ></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <router-link class="nav-link" to="/admin/products">
-            商品管理
+          <router-link class="nav-link text-dark" to="/admin/products">
+            <p class="mb-0 h6">商品管理</p>
           </router-link>
-          <router-link class="nav-link" to="/admin/orders">
-            訂單
+          <router-link class="nav-link text-dark" to="/admin/orders">
+            <p class="mb-0 h6">訂單管理</p>
+          </router-link>
+          <router-link class="nav-link text-dark" to="/admin/coupons">
+            <p class="mb-0 h6">優惠活動</p>
           </router-link>
         </div>
         <div class="navbar-nav ms-auto">

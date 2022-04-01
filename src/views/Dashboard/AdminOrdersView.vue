@@ -1,8 +1,12 @@
 <template>
   <Loading :is-ready="isReady"></Loading>
   <div class="container">
-    <h3 class="h3 text-center mt-4">訂單管理</h3>
-    <table class="table align-middle">
+    <h3
+      class="h1 text-white text-center m-4 pb-3 border-bottom border-white border-3"
+    >
+      訂單管理
+    </h3>
+    <table class="table align-middle bg-white rounded-3">
       <thead>
         <tr>
           <th>購買時間</th>
@@ -16,22 +20,45 @@
       <tbody>
         <tr v-for="order in orders" :key="order.id">
           <td style="width: 200px">
-            {{ order.create_at }}
+            {{ $filters.timeConvert(order.create_at) }}
           </td>
           <td>
             {{ order.user.email }}
           </td>
           <td>
-            <div v-for="product in order.products" :key="order.id + product.id">
-              {{ product.product.title }} 數量 {{ product.qty }}
-              {{ product.product.unit }}
+            <tr v-for="product in order.products" :key="order.id + product.id">
+              {{
+                product.product.title
+              }}
+              {{
+                product.qty
+              }}
+              /
+              {{
+                product.product.unit
+              }}
+            </tr>
+          </td>
+          <td>
+            {{ $filters.currency(order.total) }}
+          </td>
+          <td>
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                :id="`enableSwitch${order.id}`"
+                v-model="order.ispaid"
+                :true-value="1"
+                :false-value="0"
+                @change="updateEnableStatus(order)"
+              />
+              <label class="form-check-label" :for="`enableSwitch${order.id}}`">
+                <span class="text-primary" v-if="order.ispaid">已付款</span>
+                <span class="text-light" v-else>未付款</span>
+              </label>
             </div>
-          </td>
-          <td>
-            {{ parseInt(order.total) }}
-          </td>
-          <td>
-            {{ order.is_paid }}
+            <!-- {{ order.is_paid }} -->
           </td>
           <td>
             <div class="btn-group btn-group-sm">
@@ -116,8 +143,8 @@ export default {
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
-            title: '取得訂單失敗',
-            content: err.response.data.message
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
           })
         })
     },
@@ -129,8 +156,8 @@ export default {
         .then(res => {
           this.emitter.emit('push-message', {
             style: 'success',
-            title: '刪除訂單成功',
-            content: res.data.message
+            title: res.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_SUCCESS}`
           })
           this.getOrders()
           this.isReady = true
@@ -138,8 +165,8 @@ export default {
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
-            title: '刪除訂單失敗',
-            content: err.response.data.message
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
           })
           this.isReady = true
         })

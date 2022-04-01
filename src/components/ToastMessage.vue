@@ -12,7 +12,7 @@
     >
       <div class="toast-header bg-opacity-100 text-primary">
         <i
-          class="bi fs-6 mr-3"
+          class="bi fs-6 me-3"
           :class="`bi-${msg.emoji} text-${msg.style}`"
         ></i>
         <strong class="me-auto fs-6" :class="`text-${msg.style}`">{{
@@ -53,7 +53,12 @@ export default {
   },
   mounted () {
     this.emitter.on('push-message', message => {
-      const { style = 'success', title, content, emoji } = message
+      const {
+        style = 'success',
+        title,
+        content,
+        emoji = `${process.env.VUE_APP_USER_SUCCESS}`
+      } = message
       this.messages.push({ style, title, content, emoji })
       this.toastShow()
     })

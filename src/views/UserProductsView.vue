@@ -1,50 +1,56 @@
 <template>
-  <HeaderPic></HeaderPic>
+  <HeaderPic :title="title"></HeaderPic>
   <Loading :is-ready="isReady"></Loading>
-  <div class="container bg-secondary rounded-3 mb-0 mb-md-4">
+  <div class="container bg-secondary rounded-3 my-0 my-md-4">
     <div class="row justify-content-around py-4">
       <button
-        class="btn btn-primary text-white col-5 col-md-2 rounded-pill mb-3 mb-md-0"
+        class="btn btn-primary col-5 col-md-2 rounded-pill text-white
+        border border-white border-2 mb-3 mb-md-0"
         @click="getCategory(小資家電)"
       >
-        小資家電
+        <strong class="h5">小資家電</strong>
       </button>
       <button
-        class="btn btn-primary text-white col-5 col-md-2 rounded-pill mb-3 mb-md-0"
+        class="btn btn-primary col-5 col-md-2 rounded-pill text-white
+        border border-white border-2 mb-3 mb-md-0"
         @click="getCategory(質感居家)"
       >
-        質感居家
+        <strong class="h5">質感居家</strong>
       </button>
       <button
-        class="btn btn-primary text-white col-5 col-md-2 rounded-pill mb-md-0"
+        class="btn btn-primary col-5 col-md-2 rounded-pill text-white
+        border border-white border-2 mb-md-0"
         @click="getCategory(精緻生活)"
       >
-        精緻生活
+        <strong class="h5">精緻生活</strong>
       </button>
       <button
-        class="btn btn-primary text-white col-5 col-md-2 rounded-pill mb-md-0"
+        class="btn btn-primary col-5 col-md-2 rounded-pill text-white
+        border border-white border-2 mb-md-0"
         @click="getCategory(療癒小物)"
       >
-        療癒小物
+        <strong class="h5">療癒小物</strong>
       </button>
     </div>
 
     <div class="row">
       <div
-        class="col-12 col-md-6 col-lg-4"
+        class="col-12 col-md-6 col-xl-4"
         v-for="(product, key) in products"
         :key="product.id + key"
-        style="cursor: pointer;"
-        @click="$router.push(`/product/${product.id}`)"
       >
-        <div class="card mb-4 rounded-3 border-primary border-1 shadow-info">
+        <div
+          class="card mb-4 rounded-3 border-primary border-1 shadow-info"
+          style="cursor: pointer;"
+          @click="$router.push(`/product/${product.id}`)"
+        >
           <div
             :style="{ backgroundImage: `url(${product.imageUrl})` }"
             style="height: 15rem; background-size: cover; background-position: center center"
             class="p-3"
           >
             <span
-              class="text-white bg-success rounded-3 p-1"
+              class="text-white bg-success rounded-3 py-1 px-2"
               v-if="product.origin_price !== product.price"
               >特價中</span
             >
@@ -66,7 +72,7 @@
                   text-center text-white text-nowrap"
                   @click.stop="toggleFavorites(product.id)"
                 >
-                  <i class="bi bi-heart-fill h6"></i>
+                  <i class="bi bi-heart-fill h6 me-1 me-md-2"></i>
                   <span class="h6">加入收藏</span>
                 </button>
               </div>
@@ -76,7 +82,7 @@
                   text-center text-white text-nowrap"
                   @click.stop="toggleFavorites(product.id)"
                 >
-                  <i class="bi bi-heart-fill h6"></i>
+                  <i class="bi bi-heart-fill h6 me-1 me-md-2"></i>
                   <span class="h6">移除收藏</span>
                 </button>
               </div>
@@ -86,7 +92,7 @@
                   text-center text-white text-nowrap"
                   @click.stop="innerButton"
                 >
-                  <i class="bi bi-bag-fill h6"></i>
+                  <i class="bi bi-bag-fill h6 me-1 me-md-2"></i>
                   <span class="h6">加入購物車</span>
                 </button>
               </div>
@@ -101,6 +107,14 @@
   <router-view />
 </template>
 
+<style>
+.card:hover {
+  position: relative;
+  top: -4px;
+  right: -4px;
+}
+</style>
+
 <script>
 import HeaderPic from '@/components/Front/HeaderPic.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -109,12 +123,14 @@ import Loading from '@/components/Loading.vue'
 export default {
   data () {
     return {
+      title: '商品總覽',
       products: [],
       productId: '',
       isLoading: '',
       isReady: '',
       pagination: {},
       favorites: []
+      // cartData: []
     }
   },
   components: {
@@ -138,14 +154,14 @@ export default {
         this.emitter.emit('push-message', {
           style: 'success',
           title: '收藏成功',
-          emoji: 'emoji-heart-eyes'
+          emoji: `${process.env.VUE_APP_USER_SUCCESS}`
         })
       } else {
         this.favorites.splice(index, 1)
         this.emitter.emit('push-message', {
           style: 'dark',
           title: '移除收藏',
-          emoji: 'emoji-dizzy'
+          emoji: `${process.env.VUE_APP_USER_FAIL}`
         })
       }
       localStorage.setItem('favorites', JSON.stringify(this.favorites))
@@ -153,12 +169,6 @@ export default {
     toggleFavorBtn (id) {
       const liked = this.favorites.includes(id)
       return liked
-    },
-    innerButton () {
-      alert('這是內層')
-    },
-    test (text) {
-      alert(text)
     },
     getProducts (page = 1) {
       this.isReady = false
@@ -173,12 +183,25 @@ export default {
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
-            title: '取得產品失敗',
-            content: err.response.data.message
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_USER_FAIL}`
           })
         })
     },
+    // getCart () {
+    //   const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
+    //   this.$http
+    //     .get(url)
+    //     .then(res => {
+    //       this.cartData = res.data.data
+    //       alert(this.cartData.carts.length)
+    //     })
+    //     .catch(err => {
+    //       alert(err.data.message)
+    //     })
+    // },
     addToCart (id, qty = 1) {
+      this.isReady = false
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`
       this.isLoading = id
       const cart = {
@@ -188,12 +211,21 @@ export default {
       this.$http
         .post(url, { data: cart })
         .then(res => {
-          // console.log(res)
-          alert(res.data.message)
+          this.emitter.emit('push-message', {
+            style: 'success',
+            title: res.data.message,
+            emoji: `${process.env.VUE_APP_USER_SUCCESS}`
+          })
           this.isLoading = ''
+          this.isReady = true
         })
         .catch(err => {
-          alert(err.data.message)
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_USER_FAIL}`
+          })
+          this.isReady = true
         })
     },
     openProductModal (id) {
@@ -206,6 +238,7 @@ export default {
   mounted () {
     this.getProducts()
     this.getFavorites()
+    // this.getCart()
   }
 }
 </script>

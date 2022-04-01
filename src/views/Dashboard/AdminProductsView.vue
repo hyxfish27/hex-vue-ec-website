@@ -4,11 +4,11 @@
     <h3 class="h3 text-center mt-4">產品列表</h3>
     <!-- Add Product Button -->
     <div class="text-end mt-4">
-      <button class="btn btn-primary" @click="openModal('new')">
+      <button class="btn btn-primary text-white" @click="openModal('new')">
         建立新的產品
       </button>
     </div>
-    <!-- Product list -->
+    <!-- Product list (DeskTop View) -->
     <table class="table mt-4">
       <thead>
         <tr>
@@ -36,7 +36,6 @@
           <td>{{ product.title }}</td>
           <td class="text-end">{{ product.origin_price }}</td>
           <td class="text-end">{{ product.price }}</td>
-          <!-- @click="product.is_enabled = !product.is_enabled" -->
           <td>
             <div class="form-check form-switch">
               <input
@@ -87,7 +86,7 @@
       :is-new="isNew"
       @add-product="addProduct"
       @update-product="updateProduct"
-      ref="ProductModalModal"
+      ref="ProductModal"
     ></ProductModal>
     <!-- Delete Product Modal -->
     <DelModal
@@ -142,8 +141,8 @@ export default {
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
-            title: '取得產品失敗',
-            content: err.response.data.message
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
           })
         })
     },
@@ -156,20 +155,20 @@ export default {
           this.getProducts()
           this.emitter.emit('push-message', {
             style: 'success',
-            title: '新增產品成功',
-            content: res.data.message
+            title: res.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_SUCCESS}`
           })
           this.isReady = true
         })
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
-            title: '新增產品失敗',
-            content: err.response.data.message
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
           })
           this.isReady = true
         })
-      this.$refs.adminProductModal.hideModal()
+      this.$refs.ProductModal.hideModal()
     },
     updateProduct () {
       this.isReady = false
@@ -179,8 +178,8 @@ export default {
         .then(res => {
           this.emitter.emit('push-message', {
             style: 'success',
-            title: '編輯產品成功',
-            content: res.data.message
+            title: res.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_SUCCESS}`
           })
           this.getProducts(this.pagination.current_page)
           this.isReady = true
@@ -188,12 +187,12 @@ export default {
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
-            title: '編輯產品失敗',
-            content: err.response.data.message
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
           })
           this.isReady = true
         })
-      this.$refs.adminProductModal.hideModal()
+      this.$refs.ProductModal.hideModal()
     },
     removeProduct (id) {
       this.isReady = false
@@ -203,8 +202,8 @@ export default {
         .then(res => {
           this.emitter.emit('push-message', {
             style: 'success',
-            title: '刪除產品成功',
-            content: res.data.message
+            title: res.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_SUCCESS}`
           })
           this.getProducts(this.pagination.current_page)
           this.isReady = true
@@ -212,8 +211,8 @@ export default {
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
-            title: '刪除產品失敗',
-            content: err.response.data.message
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
           })
           this.isReady = true
         })
@@ -227,8 +226,8 @@ export default {
         .then(res => {
           this.emitter.emit('push-message', {
             style: 'success',
-            title: '已啟用產品',
-            content: res.data.message
+            title: res.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_SUCCESS}`
           })
           this.getProducts(this.pagination.current_page)
           this.isReady = true
@@ -236,8 +235,8 @@ export default {
         .catch(err => {
           this.emitter.emit('push-message', {
             style: 'danger',
-            title: '啟用產品失敗',
-            content: err.response.data.message
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
           })
           this.isReady = true
         })
@@ -256,7 +255,7 @@ export default {
         this.isNew = false
       }
       // modalMixin 下的 openModal() 方法
-      this.$refs.adminProductModal.openModal()
+      this.$refs.ProductModal.openModal()
     },
     openDelModal (product) {
       this.tempProduct = { ...product }

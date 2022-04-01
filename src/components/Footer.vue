@@ -14,14 +14,21 @@
           <i class="bi bi-github h5 me-1 me-sm-2"></i>
         </div>
       </div>
-      <div class="text-center">
-        <span class="mb-2 text-secondary h6 mr-1 mr-sm-3">
-          &copy;&nbsp;Vicky Huang | 僅個人作品練習，無任何商業用途
-        </span>
-        <router-link class="text-secondary m-auto p-1" to="/login">
-          <i class="bi bi-gear me-1"></i>
-          <span>管理員登入</span>
-        </router-link>
+      <div class="row justify-content-start">
+        <div class="col-12 col-md-8 mb-2">
+          <span class="mb-2 text-secondary h6">
+            &copy;&nbsp;Vicky Huang | 僅個人作品練習，無任何商業用途
+          </span>
+        </div>
+        <div class="col-12 col-md-8">
+          <router-link
+            class="text-secondary border border-secondary border-1 p-1"
+            to="/login"
+          >
+            <i class="bi bi-gear me-1"></i>
+            <span>管理員登入</span>
+          </router-link>
+        </div>
       </div>
     </div>
   </footer>

@@ -61,7 +61,7 @@
             <div class="btn-group">
               <button
                 type="button"
-                class="btn btn-outline-info btn-sm"
+                class="btn btn-outline-success btn-sm"
                 @click="openModal('edit', product)"
               >
                 編輯
@@ -82,13 +82,13 @@
     <Pagination :pages="pagination" @emit-pages="getProducts"></Pagination>
     <!-- Admin Product Modal -->
     <!-- ref 用來抓取要執行的 modal 元件 -->
-    <AdminProduct
+    <ProductModal
       :temp-product="tempProduct"
       :is-new="isNew"
       @add-product="addProduct"
       @update-product="updateProduct"
-      ref="adminProductModal"
-    ></AdminProduct>
+      ref="ProductModalModal"
+    ></ProductModal>
     <!-- Delete Product Modal -->
     <DelModal
       :del-item="tempProduct"
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import AdminProduct from '@/components/Dashboard/AdminProduct.vue'
+import ProductModal from '@/components/Dashboard/ProductModal.vue'
 import DelModal from '@/components/Dashboard/DelModal.vue'
 import Pagination from '@/components/Pagination.vue'
 import Loading from '@/components/Loading.vue'
@@ -122,7 +122,7 @@ export default {
   },
   inject: ['emitter'],
   components: {
-    AdminProduct,
+    ProductModal,
     DelModal,
     Pagination,
     Loading

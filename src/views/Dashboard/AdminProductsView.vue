@@ -1,10 +1,10 @@
 <template>
   <Loading :is-ready="isReady"></Loading>
   <div class="container">
-    <h3 class="h3 text-center mt-4">產品列表</h3>
+    <h3 class="h3 text-center my-4">產品列表</h3>
     <!-- Add Product Button -->
     <div class="text-end mt-4">
-      <button class="btn btn-primary text-white" @click="openModal('new')">
+      <button class="btn btn-success text-white" @click="openModal('new')">
         建立新的產品
       </button>
     </div>
@@ -15,7 +15,7 @@
           <th width="120">
             分類
           </th>
-          <th>產品名稱</th>
+          <th>名稱</th>
           <th width="120">
             原價
           </th>
@@ -23,10 +23,10 @@
             售價
           </th>
           <th width="100">
-            是否啟用
+            狀態
           </th>
           <th width="120">
-            編輯
+            操作
           </th>
         </tr>
       </thead>

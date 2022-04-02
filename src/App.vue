@@ -12,6 +12,16 @@
 #brandName {
   font-family: 'Kaisei Decol', serif;
 }
+
+.btn-primary,
+.btn-success {
+  color: #fff;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-success:hover {
+  color: #fff;
+}
 </style>
 
 <script>

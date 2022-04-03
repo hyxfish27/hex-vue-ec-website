@@ -9,7 +9,7 @@
   >
     <div class="modal-dialog">
       <div class="modal-content border-0">
-        <div class="modal-header bg-danger text-white">
+        <div class="modal-header bg-success text-white">
           <h5 id="delProductModalLabel" class="modal-title">
             <span>刪除產品</span>
           </h5>
@@ -21,21 +21,21 @@
           ></button>
         </div>
         <div class="modal-body">
-          是否刪除
-          <strong class="text-danger">{{ delItem.title }}</strong>
-          商品(刪除後將無法恢復)。
+          是否刪除?
+          <!-- <strong class="text-danger">{{ delItem.title }}</strong> -->
+          (刪除後將無法恢復)。
         </div>
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-outline-success"
             data-bs-dismiss="modal"
           >
             取消
           </button>
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-outline-dark"
             @click="$emit('remove-item', delItem.id)"
           >
             確認刪除

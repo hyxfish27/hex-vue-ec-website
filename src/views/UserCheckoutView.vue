@@ -1,5 +1,6 @@
 <template>
   <Loading :is-ready="isReady"></Loading>
+  <HeaderPic :title="title"></HeaderPic>
   <div class="my-5 row justify-content-center">
     <form class="col-md-6" @submit.prevent="payOrder">
       <table class="table align-middle">
@@ -9,16 +10,16 @@
           <th>單價</th>
         </thead>
         <tbody>
-          <tr v-for="order in order.products" :key="order.id">
-            <td>{{ order.product.title }}</td>
-            <td>{{ order.qty }}/{{ order.product.unit }}</td>
-            <td class="text-end">{{ $filters.currency(order.final_total) }}</td>
+          <tr v-for="item in order.products" :key="item.id">
+            <td>{{ item.product.title }}</td>
+            <td>{{ item.qty }}/{{ item.product.unit }}</td>
+            <td class="text-end">{{ item.final_total }}</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td colspan="2" class="text-end">總計</td>
-            <td class="text-end">{{ $filters.currency(order.total) }}</td>
+            <td class="text-end">{{ order.total }}</td>
           </tr>
         </tfoot>
       </table>
@@ -59,20 +60,25 @@
 
 <script>
 import Loading from '@/components/Loading.vue'
+import HeaderPic from '@/components/Front/HeaderPic.vue'
 
 export default {
   data () {
     return {
+      title: '訂購完成',
       order: {
-        user: {}
+        user: {},
+        products: {}
       },
       orderId: '',
       isReady: false
     }
   },
   components: {
-    Loading
+    Loading,
+    HeaderPic
   },
+  inject: ['emitter'],
   methods: {
     getOrder () {
       this.isReady = false
@@ -85,7 +91,11 @@ export default {
         })
         .catch(err => {
           this.isReady = true
-          this.$httpMessageState(err.res, '錯誤訊息')
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_USER_FAIL}`
+          })
         })
     },
     payOrder () {
@@ -99,7 +109,11 @@ export default {
         })
         .catch(err => {
           this.isReady = true
-          this.$httpMessageState(err.response, '錯誤訊息')
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: err.response.data.message,
+            emoji: `${process.env.VUE_APP_USER_FAIL}`
+          })
         })
     }
   },

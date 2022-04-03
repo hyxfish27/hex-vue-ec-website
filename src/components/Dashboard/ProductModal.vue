@@ -170,18 +170,24 @@
                 </textarea>
               </div>
               <div class="mb-3">
-                <div class="form-check">
+                <div class="form-check form-switch">
                   <input
-                    id="is_enabled"
                     class="form-check-input"
                     type="checkbox"
+                    :id="`enableSwitch${tempProduct.id}`"
+                    v-model="tempProduct.is_enabled"
                     :true-value="1"
                     :false-value="0"
-                    v-model="tempProduct.is_enabled"
                   />
-                  <label class="form-check-label" for="is_enabled"
-                    >是否啟用</label
+                  <label
+                    class="form-check-label"
+                    :for="`enableSwitch${tempProduct.id}}`"
                   >
+                    <span class="text-primary" v-if="tempProduct.is_enabled">
+                      上架
+                    </span>
+                    <span class="text-light" v-else>下架</span>
+                  </label>
                 </div>
               </div>
             </div>

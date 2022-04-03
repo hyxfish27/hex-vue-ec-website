@@ -1,108 +1,107 @@
 <template>
   <!-- Carousel -->
-  <div
-    id="carouselExampleFade"
-    class="carousel slide carousel-fade"
-    data-bs-ride="carousel"
-  >
+  <div id="carouselExampleFade" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div
         class="carousel-item"
         data-bs-interval="2000"
-        v-for="(image, key) in imagesUrl"
+        v-for="(carousel, key) in carousels"
         :key="key"
         :class="{ active: key == 0 }"
       >
-        <img :src="image" class="d-block w-100 img-fluid" alt="girl life" />
+        <img
+          :src="carousel.imageUrl"
+          class="d-block w-100 img-fluid"
+          alt="girl life"
+        />
+        <div
+          class="carousel-caption
+          d-none d-md-block
+          position-absolute top-50 start-50 translate-middle h1"
+        >
+          <h1 class="text-dark text-nowrap bg-secondary">
+            {{ carousel.caption }}
+          </h1>
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleFade"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleFade"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="container-fluid bg-secondary py-4">
+    <div
+      class="row justify-content-center align-items-center text-center py-2 mb-3"
+    >
+      <div class="col-md-6">
+        <img :src="carousels[0].imageUrl" alt="" class="w-100" />
+      </div>
+      <div class="col-md-6">
+        <h4 class="h4 text-dark">
+          <strong>{{ carousels[0].caption }}</strong>
+        </h4>
+        <p class="h5 text-dark mb-4">{{ carousels[0].description }}</p>
+        <router-link class="btn btn-primary text-white" to="/products">
+          <span class="h6">逛逛去</span>
+          <i class="bi bi-arrow-right-circle-fill ms-1 h5"></i>
+        </router-link>
       </div>
     </div>
-    <button
-      class="carousel-control-prev"
-      type="button"
-      data-bs-target="#carouselExampleFade"
-      data-bs-slide="prev"
+    <div
+      class="row justify-content-center align-items-center text-center bg-white py-2 mb-3"
     >
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-      class="carousel-control-next"
-      type="button"
-      data-bs-target="#carouselExampleFade"
-      data-bs-slide="next"
+      <div class="col-md-6">
+        <img :src="carousels[1].imageUrl" alt="" class="w-100" />
+      </div>
+      <div class="col-md-6">
+        <h4 class="h4 text-dark">
+          <strong>{{ carousels[1].caption }}</strong>
+        </h4>
+        <p class="h5 text-dark mb-4">{{ carousels[0].description }}</p>
+        <router-link class="btn btn-primary text-white" to="/products">
+          <span class="h6">逛逛去</span>
+          <i class="bi bi-arrow-right-circle-fill ms-1 h5"></i>
+        </router-link>
+      </div>
+    </div>
+    <div
+      class="row justify-content-center align-items-center text-center py-2 mb-3"
     >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+      <div class="col-md-6">
+        <img :src="carousels[2].imageUrl" alt="" class="w-100" />
+      </div>
+      <div class="col-md-6">
+        <h4 class="h4 mb-2 text-dark">
+          <strong>{{ carousels[2].caption }}</strong>
+        </h4>
+        <p class="h5 text-dark mb-4">{{ carousels[2].description }}</p>
+        <router-link class="btn btn-primary text-white" to="/products">
+          <span class="h6">逛逛去</span>
+          <i class="bi bi-arrow-right-circle-fill ms-1 h5"></i>
+        </router-link>
+      </div>
+    </div>
   </div>
-  <div class="container">
+  <div class="container-fluid">
     <hr class="bg-primary" />
-    <h4 class="h4">熱門商品</h4>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <img
-            src="https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80"
-            class="card-img-top h-200 object-cover"
-            alt=""
-          />
-          <div class="card-body">
-            <h5 class="card-title">設備齊全單層活動空間</h5>
-            <p class="card-text"></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <img
-            src="https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80"
-            class="card-img-top h-200 object-cover"
-            alt=""
-          />
-          <div class="card-body">
-            <h5 class="card-title">設備齊全單層活動空間</h5>
-            <p class="card-text"></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <img
-            src="https://images.unsplash.com/photo-1497366672149-e5e4b4d34eb3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80"
-            class="card-img-top h-200 object-cover"
-            alt=""
-          />
-          <div class="card-body">
-            <h5 class="card-title">設備齊全單層活動空間</h5>
-            <p class="card-text"></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container-fluid bg-secondary mb-4">
     <div class="row">
       <div class="col-md-6"></div>
-      <div class="col-md-6">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus maiores
-        accusantium assumenda earum temporibus ut in dicta nemo necessitatibus
-        inventore.
-      </div>
-    </div>
-    <div class="row-converse">
-      <div class="col-md-6"></div>
-      <div class="col-md-6">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto modi qui
-        culpa reprehenderit quas alias, animi earum eos fuga ad?
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6"></div>
-      <div class="col-md-6">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos
-        molestiae qui reiciendis. Sed laboriosam optio maiores, cumque ducimus
-        ea nostrum?
-      </div>
     </div>
   </div>
   <router-view />
@@ -114,7 +113,6 @@
 }
 
 .carousel .carousel-item img {
-  height: 100%;
   object-fit: cover;
 }
 </style>
@@ -123,10 +121,29 @@
 export default {
   data () {
     return {
-      imagesUrl: [
-        'https://images.unsplash.com/photo-1620331317984-53581633aff6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-        'https://images.unsplash.com/photo-1620331314222-c1cf9a9dbba4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-        'https://images.unsplash.com/photo-1620331309205-b5a4669ac526?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
+      title: '這是標題',
+      carousels: [
+        // {
+        //   imageUrl: require('@/assets/product_kitchen.jpg'),
+        //   caption: ''
+        // },
+        {
+          imageUrl: require('@/assets/product_house.jpg'),
+          caption: '簡約，卻不簡單',
+          description: '讓你在繁忙的行程中，省去多餘的煩惱'
+        },
+        {
+          imageUrl: require('@/assets/product_life.jpg'),
+          category: '精緻生活',
+          caption: '日常，卻別有巧思',
+          description: '我們在你的日常中，增添一些驚喜'
+        },
+        {
+          imageUrl: require('@/assets/product_small.jpg'),
+          category: '療癒小物',
+          caption: '微小，卻療癒了生活',
+          description: '在煩悶的生活中，使你會心一笑'
+        }
       ]
     }
   },

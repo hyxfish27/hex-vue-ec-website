@@ -11,7 +11,7 @@
       <div class="modal-content border-0">
         <div class="modal-header bg-success text-white">
           <h5 id="delProductModalLabel" class="modal-title">
-            <span>刪除產品</span>
+            <span>確認刪除</span>
           </h5>
           <button
             type="button"

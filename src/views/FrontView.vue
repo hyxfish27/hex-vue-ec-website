@@ -45,16 +45,19 @@
     </div>
   </div>
 
-  <div class="container-fluid bg-secondary py-4">
-    <div
-      class="row justify-content-center align-items-center text-center py-2 mb-3"
-    >
+  <div class="container-fluid bg-secondary text-center">
+    <p class="my-5">
+      <span class="text-white bg-primary border-bottom border-white h2 px-3"
+        >小資生活學</span
+      >
+    </p>
+    <div class="row justify-content-center align-items-center text-center pb-3">
       <div class="col-md-6">
         <img :src="carousels[0].imageUrl" alt="" class="w-100" />
       </div>
       <div class="col-md-6">
         <h4 class="h4 text-dark">
-          <strong>{{ carousels[0].caption }}</strong>
+          <strong>{{ carousels[0].category }}</strong>
         </h4>
         <p class="h5 text-dark mb-4">{{ carousels[0].description }}</p>
         <router-link class="btn btn-primary text-white" to="/products">
@@ -64,31 +67,29 @@
       </div>
     </div>
     <div
-      class="row justify-content-center align-items-center text-center bg-white py-2 mb-3"
+      class="row justify-content-center align-items-center text-center bg-white py-3"
     >
       <div class="col-md-6">
         <img :src="carousels[1].imageUrl" alt="" class="w-100" />
       </div>
       <div class="col-md-6">
         <h4 class="h4 text-dark">
-          <strong>{{ carousels[1].caption }}</strong>
+          <strong>{{ carousels[1].category }}</strong>
         </h4>
-        <p class="h5 text-dark mb-4">{{ carousels[0].description }}</p>
+        <p class="h5 text-dark mb-4">{{ carousels[1].description }}</p>
         <router-link class="btn btn-primary text-white" to="/products">
           <span class="h6">逛逛去</span>
           <i class="bi bi-arrow-right-circle-fill ms-1 h5"></i>
         </router-link>
       </div>
     </div>
-    <div
-      class="row justify-content-center align-items-center text-center py-2 mb-3"
-    >
+    <div class="row justify-content-center align-items-center text-center py-3">
       <div class="col-md-6">
         <img :src="carousels[2].imageUrl" alt="" class="w-100" />
       </div>
       <div class="col-md-6">
-        <h4 class="h4 mb-2 text-dark">
-          <strong>{{ carousels[2].caption }}</strong>
+        <h4 class="h4 text-dark">
+          <strong>{{ carousels[2].category }}</strong>
         </h4>
         <p class="h5 text-dark mb-4">{{ carousels[2].description }}</p>
         <router-link class="btn btn-primary text-white" to="/products">
@@ -129,6 +130,7 @@ export default {
         // },
         {
           imageUrl: require('@/assets/product_house.jpg'),
+          category: '質感居家',
           caption: '簡約，卻不簡單',
           description: '讓你在繁忙的行程中，省去多餘的煩惱'
         },
@@ -136,7 +138,7 @@ export default {
           imageUrl: require('@/assets/product_life.jpg'),
           category: '精緻生活',
           caption: '日常，卻別有巧思',
-          description: '我們在你的日常中，增添一些驚喜'
+          description: '我們在你的日常中，增添了一些驚喜'
         },
         {
           imageUrl: require('@/assets/product_small.jpg'),

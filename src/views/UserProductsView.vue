@@ -4,30 +4,37 @@
   <div class="container bg-secondary rounded-3 my-0 my-md-4">
     <div class="row justify-content-around py-4">
       <button
+        class="btn btn-primary col-7 col-md-2 rounded-pill text-white
+        border border-white border-2 mb-3 mb-md-0"
+        @click.prevent="getCategory('')"
+      >
+        <strong class="h5">全部商品</strong>
+      </button>
+      <button
         class="btn btn-primary col-5 col-md-2 rounded-pill text-white
         border border-white border-2 mb-3 mb-md-0"
-        @click="getCategory(小資家電)"
+        @click.prevent="getCategory('小資家電')"
       >
         <strong class="h5">小資家電</strong>
       </button>
       <button
-        class="btn btn-primary col-5 col-md-2 rounded-pill text-white
+        class="btn btn-primary col-4 col-md-2 rounded-pill text-white
         border border-white border-2 mb-3 mb-md-0"
-        @click="getCategory(質感居家)"
+        @click.prevent="getCategory('質感居家')"
       >
         <strong class="h5">質感居家</strong>
       </button>
       <button
-        class="btn btn-primary col-5 col-md-2 rounded-pill text-white
-        border border-white border-2 mb-md-0"
-        @click="getCategory(精緻生活)"
+        class="btn btn-primary col-4 col-md-2 rounded-pill text-white
+        border border-white border-2 mb-3 mb-md-0"
+        @click.prevent="getCategory('精緻生活')"
       >
         <strong class="h5">精緻生活</strong>
       </button>
       <button
-        class="btn btn-primary col-5 col-md-2 rounded-pill text-white
-        border border-white border-2 mb-md-0"
-        @click="getCategory(療癒小物)"
+        class="btn btn-primary col-4 col-md-2 rounded-pill text-white
+        border border-white border-2 mb-3 mb-md-0"
+        @click.prevent="getCategory('療癒小物')"
       >
         <strong class="h5">療癒小物</strong>
       </button>
@@ -36,7 +43,7 @@
     <div class="row">
       <div
         class="col-12 col-md-6 col-xl-4"
-        v-for="(product, key) in products"
+        v-for="(product, key) in filterCategories"
         :key="product.id + key"
       >
         <div
@@ -107,14 +114,6 @@
   <router-view />
 </template>
 
-<style>
-.card:hover {
-  position: relative;
-  top: -4px;
-  right: -4px;
-}
-</style>
-
 <script>
 import HeaderPic from '@/components/Front/HeaderPic.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -126,6 +125,8 @@ export default {
       title: '商品總覽',
       products: [],
       productId: '',
+      categories: ['小資家電', '質感居家', '精緻生活', '療癒小物'],
+      filterCategory: '',
       isLoading: '',
       isReady: '',
       pagination: {},
@@ -140,6 +141,10 @@ export default {
   },
   inject: ['emitter'],
   methods: {
+    getCategory (category) {
+      this.filterCategory = category
+      console.log(category)
+    },
     getFavorites () {
       this.favorites = JSON.parse(localStorage.getItem('favorites'))
       if (this.favorites == null) {
@@ -178,6 +183,10 @@ export default {
         .then(res => {
           this.products = res.data.products
           this.pagination = res.data.pagination
+          const { categoryName } = this.$route.params
+          if (categoryName) {
+            this.filterCategory = categoryName
+          }
           this.isReady = true
         })
         .catch(err => {
@@ -239,6 +248,17 @@ export default {
       this.$refs.productModal.openModal()
     }
   },
+  computed: {
+    filterCategories () {
+      if (this.filterCategory) {
+        return this.products.filter(item => {
+          const data = item.category.includes(this.filterCategory)
+          return data
+        })
+      }
+      return this.products
+    }
+  },
   mounted () {
     this.getProducts()
     this.getFavorites()
@@ -246,3 +266,11 @@ export default {
   }
 }
 </script>
+
+<style>
+.card:hover {
+  position: relative;
+  top: -4px;
+  right: -4px;
+}
+</style>

@@ -43,6 +43,9 @@
               加入購物車
             </button>
           </div>
+          <hr class="bg-primary">
+          <p class="h5 my-2 text-white bg-primary p-2">{{ product.description }}</p>
+          <p class="h6 my-2 text-dark bg-secondary p-2">{{ product.content }}</p>
         </div>
       </div>
     </div>

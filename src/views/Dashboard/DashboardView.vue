@@ -1,14 +1,14 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
     <DashboardNav></DashboardNav>
-    <div class="container-fluid mt-3 position-relative">
-      <router-view v-if="adminStatus" />
-    </div>
+    <router-view v-if="adminStatus" />
+    <DashboardFooter class="mt-auto"></DashboardFooter>
   </div>
 </template>
 
 <script>
 import DashboardNav from '@/components/Dashboard/DashboardNav.vue'
+import DashboardFooter from '@/components/Dashboard/DashboardFooter.vue'
 
 export default {
   data () {
@@ -17,8 +17,10 @@ export default {
     }
   },
   components: {
-    DashboardNav
+    DashboardNav,
+    DashboardFooter
   },
+  inject: ['emitter'],
   methods: {
     checkAdmin () {
       const token = document.cookie.replace(
@@ -40,7 +42,7 @@ export default {
               title: err.response.data.message,
               emoji: `${process.env.VUE_APP_MESSAGE_FAIL}`
             })
-            alert(err.data.message)
+            // alert(err.data.message)
             this.$router.replace('/login')
           })
       } else {

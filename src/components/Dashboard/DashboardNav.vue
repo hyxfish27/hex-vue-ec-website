@@ -60,6 +60,7 @@
 
 <script>
 export default {
+  inject: ['emitter'],
   methods: {
     logout () {
       const url = `${process.env.VUE_APP_API}/logout`
@@ -71,7 +72,6 @@ export default {
             title: res.data.message,
             emoji: `${process.env.VUE_APP_MESSAGE_SUCCESS}`
           })
-          // alert('已成功登出')
           this.$router.replace('/')
         }
       })

@@ -1,46 +1,145 @@
 <template>
   <Loading :is-ready="isReady"></Loading>
   <div class="container">
-    <h3 class="h3 text-center my-4">訂單管理</h3>
-    <table class="table align-middle bg-white rounded-3">
-      <thead>
-        <tr>
-          <th>購買時間</th>
-          <th>Email</th>
-          <th>購買款項</th>
-          <th>應付金額</th>
-          <th>是否付款</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="order in orders" :key="order.id">
-          <td style="width: 200px">
-            {{ $filters.timeConvert(order.create_at) }}
-          </td>
-          <td>
-            {{ order.user.email }}
-          </td>
-          <td>
-            <tr v-for="product in order.products" :key="order.id + product.id">
-              {{
-                product.product.title
-              }}
-              {{
-                product.qty
-              }}
-              /
-              {{
-                product.product.unit
-              }}
+    <p class="h2 text-center my-4">
+      <span class="text-dark bg-secondary">訂單管理</span>
+    </p>
+    <div class="row justify-content-center">
+      <div class="col-10">
+        <!-- Desktop View -->
+        <table class="table align-middle bg-white rounded-3 d-none d-lg-table">
+          <thead>
+            <tr>
+              <th>購買時間</th>
+              <th>Email</th>
+              <th>購買品項</th>
+              <th>應付金額</th>
+              <th>是否付款</th>
+              <th>操作</th>
             </tr>
-          </td>
-          <td>
-            {{ $filters.currency(order.total) }}
-          </td>
-          <td>
-            <div class="row">
-              <div class="col-12 col-md-6">
+          </thead>
+          <tbody>
+            <tr v-for="order in orders" :key="order.id">
+              <td style="width: 100px">
+                {{ $filters.timeConvert(order.create_at) }}
+              </td>
+              <td>
+                {{ order.user.email }}
+              </td>
+              <td>
+                <tr
+                  v-for="product in order.products"
+                  :key="order.id + product.id"
+                >
+                  {{
+                    product.product.title
+                  }}
+                  {{
+                    product.qty
+                  }}
+                  /
+                  {{
+                    product.product.unit
+                  }}
+                </tr>
+              </td>
+              <td>
+                {{ $filters.currency(order.total) }}
+              </td>
+              <td>
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-check form-switch">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        :id="`enableSwitch${order.id}`"
+                        v-model="order.is_paid"
+                        :true-value="true"
+                        :false-value="false"
+                        @change="updateEnableStatus(order)"
+                      />
+                      <label
+                        class="form-check-label"
+                        :for="`enableSwitch${order.id}}`"
+                      >
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <span class="text-primary" v-if="order.is_paid"
+                      >已付款</span
+                    >
+                    <span class="text-light" v-else>未付款</span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    @click="openModal(order)"
+                    :disabled="isLoading === order.id"
+                  >
+                    <!-- <i class="fas fa-spinner fa-pulse"></i> -->
+                    檢視
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    @click="openDelModal(order)"
+                    :disabled="isLoading === order.id"
+                  >
+                    <i
+                      class="fas fa-spinner fa-pulse"
+                      v-show="isLoading === order.id"
+                    ></i>
+                    刪除
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Mobile View -->
+        <table
+          class="table align-middle bg-white rounded-3 d-inline-table d-lg-none"
+        >
+          <tbody v-for="order in orders" :key="order.id">
+            <tr>
+              <th style="width: 100px">購買時間</th>
+              <td>{{ $filters.timeConvert(order.create_at) }}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{ order.user.email }}</td>
+            </tr>
+            <tr>
+              <th>購買品項</th>
+              <td>
+                <tr
+                  v-for="product in order.products"
+                  :key="order.id + product.id"
+                >
+                  {{
+                    product.product.title
+                  }}
+                  {{
+                    product.qty
+                  }}/{{
+                    product.product.unit
+                  }}
+                </tr>
+              </td>
+            </tr>
+            <tr>
+              <th>應付金額</th>
+              <td>{{ $filters.currency(order.total) }}</td>
+            </tr>
+            <tr>
+              <th>是否付款</th>
+              <td>
                 <div class="form-check form-switch">
                   <input
                     class="form-check-input"
@@ -56,42 +155,44 @@
                     :for="`enableSwitch${order.id}}`"
                   >
                   </label>
+                  <span class="text-primary" v-if="order.is_paid">已付款</span>
+                  <span class="text-light" v-else>未付款</span>
                 </div>
-              </div>
-              <div class="col-12 col-md-6">
-                <span class="text-primary" v-if="order.is_paid">已付款</span>
-                <span class="text-light" v-else>未付款</span>
-              </div>
-            </div>
-          </td>
-          <td>
-            <div class="btn-group btn-group-sm">
-              <button
-                type="button"
-                class="btn btn-outline-success"
-                @click="openModal(order)"
-                :disabled="isLoading === order.id"
-              >
-                <!-- <i class="fas fa-spinner fa-pulse"></i> -->
-                檢視
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                @click="openDelModal(order)"
-                :disabled="isLoading === order.id"
-              >
-                <i
-                  class="fas fa-spinner fa-pulse"
-                  v-show="isLoading === order.id"
-                ></i>
-                刪除
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              </td>
+            </tr>
+            <tr>
+              <th>操作</th>
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    @click="openModal(order)"
+                    :disabled="isLoading === order.id"
+                  >
+                    <!-- <i class="fas fa-spinner fa-pulse"></i> -->
+                    檢視
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    @click="openDelModal(order)"
+                    :disabled="isLoading === order.id"
+                  >
+                    <i
+                      class="fas fa-spinner fa-pulse"
+                      v-show="isLoading === order.id"
+                    ></i>
+                    刪除
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- Pagination -->
     <Pagination :pages="pagination" @emit-pages="getOrders"></Pagination>
     <!-- Order Modal -->

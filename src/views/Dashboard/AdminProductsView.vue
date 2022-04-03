@@ -1,82 +1,159 @@
 <template>
   <Loading :is-ready="isReady"></Loading>
   <div class="container">
-    <h3 class="h3 text-center my-4">產品列表</h3>
-    <!-- Add Product Button -->
-    <div class="text-end mt-4">
-      <button class="btn btn-success text-white" @click="openModal('new')">
-        建立新的產品
-      </button>
+    <p class="h2 text-center my-4">
+      <span class="text-dark bg-secondary">產品列表</span>
+    </p>
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <!-- Add Product Button -->
+        <div class="text-end mt-4">
+          <button class="btn btn-success text-white" @click="openModal('new')">
+            建立新的產品
+          </button>
+        </div>
+        <!-- Product list (DeskTop View) -->
+        <table class="table mt-4 d-none d-md-table">
+          <thead>
+            <tr>
+              <th width="120">
+                分類
+              </th>
+              <th>名稱</th>
+              <th width="120">
+                原價
+              </th>
+              <th width="120">
+                售價
+              </th>
+              <th width="100">
+                狀態
+              </th>
+              <th width="120">
+                操作
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in products" :key="product.id">
+              <td>{{ product.category }}</td>
+              <td>{{ product.title }}</td>
+              <td class="text-end">
+                {{ $filters.currency(product.origin_price) }}
+              </td>
+              <td class="text-end">{{ $filters.currency(product.price) }}</td>
+              <td>
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    :id="`enableSwitch${product.id}`"
+                    v-model="product.is_enabled"
+                    :true-value="1"
+                    :false-value="0"
+                    @change="updateEnableStatus(product)"
+                  />
+                  <label
+                    class="form-check-label"
+                    :for="`enableSwitch${product.id}}`"
+                  >
+                    <span class="text-primary" v-if="product.is_enabled"
+                      >上架</span
+                    >
+                    <span class="text-light" v-else>下架</span>
+                  </label>
+                </div>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success btn-sm"
+                    @click="openModal('edit', product)"
+                  >
+                    編輯
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-sm"
+                    @click="openDelModal(product)"
+                  >
+                    刪除
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Product list (Mobile View) -->
+        <table class="table mt-4 d-table d-md-none">
+          <tbody v-for="product in products" :key="product.id">
+            <tr>
+              <th>分類</th>
+              <td>{{ product.category }}</td>
+            </tr>
+            <tr>
+              <th>名稱</th>
+              <td>{{ product.title }}</td>
+            </tr>
+            <tr>
+              <th>原價</th>
+              <td>{{ $filters.currency(product.origin_price) }}</td>
+            </tr>
+            <tr>
+              <th>售價</th>
+              <td>{{ $filters.currency(product.price) }}</td>
+            </tr>
+            <tr>
+              <th>狀態</th>
+              <td>
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    :id="`enableSwitch${product.id}`"
+                    v-model="product.is_enabled"
+                    :true-value="1"
+                    :false-value="0"
+                    @change="updateEnableStatus(product)"
+                  />
+                  <label
+                    class="form-check-label"
+                    :for="`enableSwitch${product.id}}`"
+                  >
+                    <span class="text-primary" v-if="product.is_enabled"
+                      >上架</span
+                    >
+                    <span class="text-light" v-else>下架</span>
+                  </label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>操作</th>
+              <td>
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success btn-sm"
+                    @click="openModal('edit', product)"
+                  >
+                    編輯
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-sm"
+                    @click="openDelModal(product)"
+                  >
+                    刪除
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <!-- Product list (DeskTop View) -->
-    <table class="table mt-4">
-      <thead>
-        <tr>
-          <th width="120">
-            分類
-          </th>
-          <th>名稱</th>
-          <th width="120">
-            原價
-          </th>
-          <th width="120">
-            售價
-          </th>
-          <th width="100">
-            狀態
-          </th>
-          <th width="120">
-            操作
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="product in products" :key="product.id">
-          <td>{{ product.category }}</td>
-          <td>{{ product.title }}</td>
-          <td class="text-end">{{ product.origin_price }}</td>
-          <td class="text-end">{{ product.price }}</td>
-          <td>
-            <div class="form-check form-switch">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                :id="`enableSwitch${product.id}`"
-                v-model="product.is_enabled"
-                :true-value="1"
-                :false-value="0"
-                @change="updateEnableStatus(product)"
-              />
-              <label
-                class="form-check-label"
-                :for="`enableSwitch${product.id}}`"
-              >
-                <span class="text-primary" v-if="product.is_enabled">上架</span>
-                <span class="text-light" v-else>下架</span>
-              </label>
-            </div>
-          </td>
-          <td>
-            <div class="btn-group">
-              <button
-                type="button"
-                class="btn btn-outline-success btn-sm"
-                @click="openModal('edit', product)"
-              >
-                編輯
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary btn-sm"
-                @click="openDelModal(product)"
-              >
-                刪除
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
     <!-- Pagination -->
     <Pagination :pages="pagination" @emit-pages="getProducts"></Pagination>
     <!-- Admin Product Modal -->

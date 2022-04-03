@@ -9,7 +9,7 @@
   >
     <div class="modal-dialog">
       <div class="modal-content border-0">
-        <div class="modal-header bg-success text-white">
+        <div class="modal-header bg-dark text-white">
           <h5 id="delProductModalLabel" class="modal-title">
             <span>確認刪除</span>
           </h5>

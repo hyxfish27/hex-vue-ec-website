@@ -81,7 +81,8 @@ export default {
     return {
       cartData: {},
       cartLength: '',
-      favorites: []
+      favorites: [],
+      favoriteNum: ''
     }
   },
   methods: {
@@ -105,7 +106,9 @@ export default {
       this.favorites = JSON.parse(localStorage.getItem('favorites'))
       if (this.favorites == null) {
         this.favorites = []
+        this.favoriteNum = 0
       }
+      this.favoriteNum = this.favorites.length
     }
   },
   mounted () {

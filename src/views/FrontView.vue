@@ -3,25 +3,21 @@
   <div id="carouselExampleFade" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
       <div
-        class="carousel-item"
-        data-bs-interval="2000"
+        class="carousel-item text-center bg-secondary"
+        data-bs-interval="3000"
         v-for="(carousel, key) in carousels"
         :key="key"
         :class="{ active: key == 0 }"
       >
-        <img
-          :src="carousel.imageUrl"
-          class="d-block w-100 img-fluid"
-          alt="girl life"
-        />
+        <img :src="carousel.imageUrl" class="h-100 img-fluid" alt="girl life" />
         <div
           class="carousel-caption
-          d-none d-md-block
-          position-absolute top-50 start-50 translate-middle h1"
+          d-none d-sm-inline-block
+          position-absolute top-50"
         >
-          <h1 class="text-dark text-nowrap bg-secondary">
+          <span class="h1 text-dark text-nowrap bg-secondary">
             {{ carousel.caption }}
-          </h1>
+          </span>
         </div>
       </div>
       <button
@@ -45,7 +41,7 @@
     </div>
   </div>
 
-  <div class="container-fluid bg-secondary text-center">
+  <div class="container text-center">
     <p class="my-5">
       <span class="text-white bg-primary border-bottom border-white h2 px-3"
         >小資生活學</span
@@ -55,7 +51,7 @@
       <div class="col-md-6">
         <img :src="carousels[0].imageUrl" alt="" class="w-100" />
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 mb-3">
         <h4 class="h4 text-dark">
           <strong>{{ carousels[0].category }}</strong>
         </h4>
@@ -67,9 +63,9 @@
       </div>
     </div>
     <div
-      class="row justify-content-center align-items-center text-center bg-white py-3"
+      class="row justify-content-center align-items-center text-center bg-secondary py-3"
     >
-      <div class="col-md-6">
+      <div class="col-md-6 mb-3">
         <img :src="carousels[1].imageUrl" alt="" class="w-100" />
       </div>
       <div class="col-md-6">
@@ -84,7 +80,7 @@
       </div>
     </div>
     <div class="row justify-content-center align-items-center text-center py-3">
-      <div class="col-md-6">
+      <div class="col-md-6 mb-3">
         <img :src="carousels[2].imageUrl" alt="" class="w-100" />
       </div>
       <div class="col-md-6">
@@ -110,7 +106,7 @@
 
 <style>
 .carousel .carousel-item {
-  height: 100vh;
+  height: 75vh;
 }
 
 .carousel .carousel-item img {

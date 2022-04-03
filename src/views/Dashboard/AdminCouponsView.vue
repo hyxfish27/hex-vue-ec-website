@@ -2,14 +2,14 @@
   <Loading :is-ready="isReady"></Loading>
   <div class="container">
     <p class="h2 text-center my-4">
-      <span class="text-dark bg-secondary">優惠券管理</span>
+      <span class="text-dark bg-secondary">優惠活動</span>
     </p>
 
     <div class="row justify-content-center">
       <div class="col-10">
         <div class="text-end mt-4">
           <button
-            class="btn btn-primary"
+            class="btn btn-success"
             type="button"
             @click="openCouponModal(true)"
           >

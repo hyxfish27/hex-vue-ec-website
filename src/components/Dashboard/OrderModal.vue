@@ -138,14 +138,14 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-success text-white"
+            class="btn btn-outline-dark"
             data-bs-dismiss="modal"
           >
             取消
           </button>
           <button
             type="button"
-            class="btn btn-primary text-white"
+            class="btn btn-outline-primary"
             @click="$emit('enable-status', tempOrder)"
           >
             修改付款狀態

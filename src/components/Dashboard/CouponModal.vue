@@ -88,14 +88,14 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-outline-dark"
             data-bs-dismiss="modal"
           >
-            Close
+            取消
           </button>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-outline-primary"
             @click="$emit('update-coupon', tempCoupon)"
           >
             {{ isNew ? '新增優惠卷' : '更新優惠券' }}

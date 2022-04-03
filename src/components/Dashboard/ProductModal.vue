@@ -9,7 +9,7 @@
   >
     <div class="modal-dialog modal-xl">
       <div class="modal-content border-0">
-        <div class="modal-header bg-dark text-white">
+        <div class="modal-header bg-success text-white">
           <h5 id="productModalLabel" class="modal-title">
             <span>{{ isNew ? '新增產品' : '編輯產品' }}</span>
           </h5>
@@ -197,14 +197,14 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-outline-success"
             data-bs-dismiss="modal"
           >
             取消
           </button>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-outline-primary"
             @click="
               isNew
                 ? $emit('add-product', tempProduct)

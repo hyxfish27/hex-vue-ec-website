@@ -42,7 +42,7 @@
         <div
           class="card mb-4 rounded-3 border-primary border-1 shadow-info"
           style="cursor: pointer;"
-          @click="$router.push(`/product/${product.id}`)"
+          @click="this.$router.push(`/product/${product.id}`)"
         >
           <div
             :style="{ backgroundImage: `url(${product.imageUrl})` }"
@@ -56,10 +56,10 @@
             >
           </div>
           <div class="card-body">
-            <h5 class="card-title">
-              <router-link class="link-primary" :to="`/product/${product.id}`">
-                {{ product.title }}
-              </router-link>
+            <h5 class="card-title text-primary">
+              <!-- <router-link class="link-primary" :to="`/product/${product.id}`"> -->
+              {{ product.title }}
+              <!-- </router-link> -->
             </h5>
 
             <div class="row justify-content-center align-items-center">
@@ -90,7 +90,7 @@
                 <button
                   class="btn btn-primary w-100
                   text-center text-white text-nowrap"
-                  @click.stop="innerButton"
+                  @click.stop="addToCart(product.id)"
                 >
                   <i class="bi bi-bag-fill h6 me-1 me-md-2"></i>
                   <span class="h6">加入購物車</span>
@@ -130,7 +130,7 @@ export default {
       isReady: '',
       pagination: {},
       favorites: []
-      // cartData: []
+      // cartData: {}
     }
   },
   components: {
@@ -194,10 +194,14 @@ export default {
     //     .get(url)
     //     .then(res => {
     //       this.cartData = res.data.data
-    //       alert(this.cartData.carts.length)
+    //       // alert(this.cartData.carts.length)
     //     })
     //     .catch(err => {
-    //       alert(err.data.message)
+    //       this.emitter.emit('push-message', {
+    //         style: 'danger',
+    //         title: err.response.data.message,
+    //         emoji: `${process.env.VUE_APP_USER_FAIL}`
+    //       })
     //     })
     // },
     addToCart (id, qty = 1) {
